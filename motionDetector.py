@@ -47,9 +47,9 @@ def check_status():
         window.after(3000, disarm_system)
     window.after(500, check_status)
 
-arm_button = tk.Button(window, text="Arm System", command=arm_system, font=("Arial", 14))
+arm_button = tk.Button(window, text="Arm System", command=arm_system, font=("Arial", 20))
 arm_button.pack(pady=10)
-disarm_button = tk.Button(window, text="Disarm System", command=disarm_system, font=("Arial", 14))
+disarm_button = tk.Button(window, text="Disarm System", command=disarm_system, font=("Arial", 20))
 disarm_button.pack(pady=10)
 
 check_status()
