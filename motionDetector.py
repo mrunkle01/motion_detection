@@ -9,7 +9,7 @@ led = LED(18)
 pygame.mixer.init()
 pygame.mixer.music.load('alarm_noise.mp3')
 
-#GUI
+
 window = tk.Tk()
 window.title("Motion Detection System")
 window.geometry("400x400")
