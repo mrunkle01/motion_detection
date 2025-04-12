@@ -60,6 +60,8 @@ def disarm_system():
 
 def alert():
     print("ALERTED")
+    if armed:
+        return
     pygame.mixer.music.load("alarm_noise.mp3")
     status_label.config(text="MOTION DETECTED", font=("Engravers MT", 20), background="red")
     led.on()
@@ -71,7 +73,6 @@ def check_status():
     if armed:
         pir.wait_for_motion()
         alert()
-        window.after(1500, disarm_system)
     window.after(500, check_status)
 
 arm_button = tk.Button(window, text="Arm System", command=arm_system, font=("Engravers MT", 20))
