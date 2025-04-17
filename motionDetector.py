@@ -15,16 +15,17 @@ status_label = tk.Label(window, text="Status: Idle", font=("Engravers MT", 20), 
 status_label.pack(pady=20)
 
 def arm_system():
-    print("ARMED")
     pygame.mixer.music.stop()
     pygame.mixer.music.load("armed.mp3")
     pygame.mixer.music.play()
     global armed
+    if armed:
+        return
     armed = True
     status_label.config(text="Status: Armed", font=("Engravers MT", 20), background="lightblue")
 
 def password_window():
-    print("PASSWORD window")
+
     pw_window = tk.Toplevel(window)
     pw_window.title("Password Checker")
     pw_window.geometry("400x150")
@@ -36,7 +37,7 @@ def password_window():
     pwrd_entry.pack()
 
     def password_checker():
-        password = "12345"
+        password = "secret_password"
         entered_password = pwrd_entry.get()
         if entered_password == password:
             pw_window.destroy()
@@ -48,7 +49,6 @@ def password_window():
     pwrd_check.pack(pady=10)
 
 def disarm_system():
-    print("DISARMED")
     pygame.mixer.music.stop()
     pygame.mixer.music.load("disarmed.mp3")
     pygame.mixer.music.play()
@@ -59,9 +59,6 @@ def disarm_system():
     led.off()
 
 def alert():
-    print("ALERTED")
-    if armed:
-        return
     pygame.mixer.music.load("alarm_noise.mp3")
     status_label.config(text="MOTION DETECTED", font=("Engravers MT", 20), background="red")
     led.on()
@@ -71,8 +68,8 @@ def alert():
 def check_status():
     global armed
     if armed:
-        pir.wait_for_motion()
-        alert()
+        if pir.motion_detected:
+            alert()
     window.after(500, check_status)
 
 arm_button = tk.Button(window, text="Arm System", command=arm_system, font=("Engravers MT", 20))
